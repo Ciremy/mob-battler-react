@@ -2,11 +2,9 @@
   text-align: center;
 }
 
-.carWrapper{
+.carWrapper {
   width: 100%;
   flex-wrap: wrap;
   flex-direction: row;
   display: flex;
 }
-
-
