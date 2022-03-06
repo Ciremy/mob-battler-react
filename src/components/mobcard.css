@@ -1,0 +1,14 @@
+.globalCard{
+    width: 100%;
+    padding: 15px;
+    background-color: aliceblue;
+}
+
+.cardImg{
+    width: 100px;
+    height: 125px;
+}
+
+.cardText{
+    width: 100%;
+}
