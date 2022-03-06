@@ -6,7 +6,6 @@ const SPELL_BACKGROUND = {
     physique : "#D3D3D3",
     maladie : "#CC3222",
     soin : "#96DD7E"
-
 }
 
 export const ATTACKS = [ 
@@ -180,3 +179,15 @@ export const MONSTERS = [
         availableAttacks : ["Attaque de base","Ombre grandissante", "Vision horrifique", "Ombre enveloppante" ]
     },
 ]
+
+
+export const BASE_API_URL = "https://mb-api.caprover.jsl-systems.com"
+
+export const ATTACK_TYPES = ["",
+"Nature",
+"Arcane" ,
+"Lumière",
+"Ombre",
+"Physique",
+"Maladie",
+"Soin" ]

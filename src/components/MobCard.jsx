@@ -1,6 +1,6 @@
 import React from 'react'
-import { Card } from 'react-bootstrap';
-import {MONSTERS} from '../const.js'
+import { Card, CardTitle, CardImg } from 'reactstrap'
+
 import "./mobcard.css";
 
 
@@ -9,8 +9,8 @@ function MobCard({monsterDetail}) {
   return (
     <div>
         <Card className="globalCard">
-          <Card.Title className='cardText'>{monsterDetail.name}</Card.Title>
-          <Card.Img className ="cardImg"src={monsterDetail.imgUrl} alt="Card image" />
+          <CardTitle className='cardText'>{monsterDetail.name}</CardTitle>
+          <CardImg className ="cardImg"src={monsterDetail.imgUrl} alt="Card image" />
       </Card>
     </div>
   )
