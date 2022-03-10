@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, {useEffect, useState} from 'react'
-import {useParams, useNavigate} from 'react-router-dom'
+import {useParams, useNavigate, Link} from 'react-router-dom'
 import {Input, Form, Label, Button} from 'reactstrap'
 
 import {BASE_API_URL,ATTACK_TYPES} from '../../../const.js'
@@ -120,6 +120,11 @@ useEffect(() => {
         </Button>
     </div>
     {isError && <div>Ooupsss... something bad happened</div>}
+    <Link to="/admin/attacks">
+        <Button>
+            Back
+        </Button>
+    </Link>
     </>
   )
 }

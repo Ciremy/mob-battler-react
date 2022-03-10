@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import { Table } from 'reactstrap'
-import {useNavigate} from 'react-router-dom'
+import { Button, Table } from 'reactstrap'
+import {useNavigate,Link} from 'react-router-dom'
 import {BASE_API_URL} from '../../../const.js'
 
 
@@ -18,25 +18,25 @@ const AttackRow = ({attack}) => {
 
 function AttacksList() {
 
-const [attacks, setAttacks] = useState([])
-const [isLoading, setIsLoading] = useState(false)
-const navigate = useNavigate()
+  const [attacks, setAttacks] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
 
-const getInitialData = async () => {
-  setIsLoading(true)
-  const fetchedAttacks = await axios.get(`${BASE_API_URL}/attacks`)
-  setAttacks(fetchedAttacks.data)
-  setIsLoading(false)
-}
+  const getInitialData = async () => {
+    setIsLoading(true)
+    const fetchedAttacks = await axios.get(`${BASE_API_URL}/attacks`)
+    setAttacks(fetchedAttacks.data)
+    setIsLoading(false)
+  }
 
-const handleEdit = (id) => {
-const url = `/admin/attacks/edit/${id}`
-navigate(url)
-}
+  const handleEdit = (id) => {
+  const url = `/admin/attacks/edit/${id}`
+  navigate(url)
+  }
 
-useEffect(()=> {
-  getInitialData()
-},[])
+  useEffect(()=> {
+    getInitialData()
+  },[])
 
 
   return (
@@ -68,6 +68,13 @@ useEffect(()=> {
     </tbody>
     </Table>
     {isLoading && <div>Loading...</div>}
+    <Link to="/admin/attacks/new">
+      <Button>Add New</Button>
+    </Link>
+    <Link to="/admin">
+      <Button>Back</Button>
+    </Link>
+    
     </>
 
   )
