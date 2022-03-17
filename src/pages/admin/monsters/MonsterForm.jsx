@@ -8,31 +8,42 @@ function MonsterForm() {
     const params = useParams()
 
 
-
+    const [isLoading, setIsLoading] = useState(false)
     const [monster, setMonster] = useState({})
-
+    const [attacks, setAttacks] = useState({}) 
 
     const getInitialData = async() =>{
+        setIsLoading(true)
         const fetchedMonster = await axios.get(`${BASE_API_URL}/monsters/${params.id}`)
-        console.log(fetchedMonster.data)
         setMonster(fetchedMonster.data)
+        const fetchedAttacks = await axios.get(`${BASE_API_URL}/attacks`)
+        setAttacks(fetchedAttacks.data)
+        setIsLoading(false)
     }
+
+
+
+    const handleChange = (value, key) => {
+        const updatedValue = {...monster}
+        updatedValue[key] = value
+        setMonster(updatedValue)
+    }
+
     useEffect(() => {
         getInitialData()
-    
     }, [])
     
 
 
   return (
       <>
+      
         <h2>MonsterForm</h2>
-        <Form className="formWrapper">
+        {!isLoading && <Form className="formWrapper">
     <Label>
         Name
     </Label>
-        <Input type='text' value={monster.name} />
-            
+        <Input type='text' value={monster.name} /> 
     <Label>
         Life Point
     </Label>
@@ -41,7 +52,22 @@ function MonsterForm() {
         Mana
     </Label>
         <Input type='number' value={monster.mana}/>
-    </Form>
+
+
+    {"Attacks" in monster && monster.Attacks.map((attack , index) => 
+        <>
+        <Label>
+            Attack {index +1}
+        </Label>    
+            <Input key={attack.id} value={attack.name}type='select'>
+                {attacks.map(attack =>
+                <option key={attack.id}>{attack.name}</option>)}
+
+            </Input>
+        </>
+    )}
+    </Form>}
+    {isLoading && <div>Loading...</div>}
       </>
     
   )

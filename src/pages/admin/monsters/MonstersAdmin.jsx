@@ -31,6 +31,8 @@ function MonstersAdmin() {
     setMonsters(fetchedMonsters.data)
     setIsLoading(false)
   }
+
+  
   useEffect(()=> {
     getInitialData()
   },[])
