@@ -4,19 +4,23 @@ import { Button, Table } from 'reactstrap'
 import {useNavigate,Link} from 'react-router-dom'
 import {BASE_API_URL} from '../../../const.js'
 
+import { BASE_API_URL } from '../../../const.js';
 
-const AttackRow = ({attack}) => {
-  return (<>
-    <td>{attack.name}</td>
-    <td>{attack.damage}</td>
-    <td>{attack.manaCost}</td>
-    <td>{attack.attackType}</td>
-  </>)
+function AttackRow({ attack }) {
+  return (
+    <>
+      <td>{attack.name}</td>
+      <td>{attack.damage}</td>
+      <td>{attack.manaCost}</td>
+      <td>{attack.attackType}</td>
+    </>
+  );
 }
 
-
-
 function AttacksList() {
+  const [attacks, setAttacks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const [attacks, setAttacks] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -38,6 +42,9 @@ function AttacksList() {
     getInitialData()
   },[])
 
+  useEffect(() => {
+    getInitialData();
+  }, []);
 
   return (
     <>
@@ -76,8 +83,7 @@ function AttacksList() {
     </Link>
     
     </>
-
-  )
+  );
 }
 
-export default AttacksList
+export default AttacksList;
