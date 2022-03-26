@@ -1,6 +1,6 @@
 module.exports = {
   ignorePatterns: ['dist', '.next', 'node_modules'],
-  extends: ['@onrewind/eslint-config/frontend'],
+  // extends: ['@onrewind/eslint-config/frontend'],
   globals: {
     FB: true,
   },

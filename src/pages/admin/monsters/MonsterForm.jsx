@@ -1,75 +1,97 @@
 import axios from 'axios'
 import React, {useState,useEffect} from 'react'
 import { useParams } from 'react-router-dom'
-import {Label,Form,Input} from 'reactstrap'
+import {Label,Form,Input, Button} from 'reactstrap'
 import { BASE_API_URL } from '../../../const'
+
+
+const DEFAULT_ATTACK = {
+    name : "",
+}
+
 
 function MonsterForm() {
     const params = useParams()
 
-
     const [isLoading, setIsLoading] = useState(false)
     const [monster, setMonster] = useState({})
-    const [attacks, setAttacks] = useState({}) 
+    const [attacks, setAttacks] = useState([]) 
 
     const getInitialData = async() =>{
         setIsLoading(true)
         const fetchedMonster = await axios.get(`${BASE_API_URL}/monsters/${params.id}`)
         setMonster(fetchedMonster.data)
         const fetchedAttacks = await axios.get(`${BASE_API_URL}/attacks`)
-        setAttacks(fetchedAttacks.data)
+        setAttacks([DEFAULT_ATTACK, ...fetchedAttacks.data])
         setIsLoading(false)
     }
-
-
 
     const handleChange = (value, key) => {
         const updatedValue = {...monster}
         updatedValue[key] = value
         setMonster(updatedValue)
+
     }
+
+const handleAddAttack = () => {
+    const updatedMonster = {...monster}
+    updatedMonster.Attacks.push(DEFAULT_ATTACK)
+    setMonster(updatedMonster)
+}
+
+
+const handleChangeAttack = (attackId, idx) => {
+    const updatedAttacks = [...monster.Attacks]
+    const newAttackOjb = attacks.find(attack => attack.id === attackId)
+    updatedAttacks[idx] = newAttackOjb
+    setMonster({...monster, Attacks : updatedAttacks})
+}
 
     useEffect(() => {
         getInitialData()
     }, [])
     
+// TODO : filter available attacks
+// TODO : add validation before submitting
+// TODO : parse payload before posting => Attacks {}[] => POST Attacks id[]
+
+if (isLoading) {
+    return <div>loading...</div>
+}
 
 
   return (
       <>
-      
         <h2>MonsterForm</h2>
-        {!isLoading && <Form className="formWrapper">
+        <Form className="formWrapper">
     <Label>
         Name
     </Label>
-        <Input type='text' value={monster.name} /> 
+        <Input type='text' value={monster.name} onChange={event=>handleChange(event.target.value, "name")}/>
     <Label>
         Life Point
     </Label>
-        <Input type='number' value={monster.lifePoint} />
+        <Input type='number' value={monster.lifePoint} onChange={event =>handleChange(event.target.value, "lifePoint")}/>
     <Label>
         Mana
     </Label>
-        <Input type='number' value={monster.mana}/>
+        <Input type='number' value={monster.mana} onChange={event =>handleChange(event.target.value, "mana")}/>
 
 
-    {"Attacks" in monster && monster.Attacks.map((attack , index) => 
+    {monster.Attacks?.map((attack , index) => 
         <>
         <Label>
             Attack {index +1}
         </Label>    
-            <Input key={attack.id} value={attack.name}type='select'>
+            <Input key={attack.id} value={attack.id} type='select' onChange={event =>{handleChangeAttack(event.target.value, index)}} >
                 {attacks.map(attack =>
-                <option key={attack.id}>{attack.name}</option>)}
-
+                <option key={attack.id} value={attack.id}>{attack.name}</option>)}
             </Input>
         </>
     )}
-    </Form>}
-    {isLoading && <div>Loading...</div>}
-      </>
-    
+    </Form>
+    {monster.Attacks?.length < 4 && <Button onClick={()=> handleAddAttack()}>add attack</Button>}
+      </>    
   )
 }
 

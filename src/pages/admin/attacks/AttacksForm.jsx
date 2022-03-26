@@ -1,9 +1,7 @@
-import axios from 'axios'
-import React, {useEffect, useState} from 'react'
-import {useParams, useNavigate, Link} from 'react-router-dom'
-import {Input, Form, Label, Button} from 'reactstrap'
-
-import {BASE_API_URL,ATTACK_TYPES} from '../../../const.js'
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Button, Form, Input, Label } from 'reactstrap';
+import axios from 'axios';
 
 import { ATTACK_TYPES, BASE_API_URL } from '../../../const.js';
 
@@ -116,27 +114,24 @@ function AttacksForm() {
             <option key={type}>{type}</option>
           ))}
         </Input>
-    </Form>
-    <Label>
-        Image Url
-    </Label>
-        <Input type='url' value={attack.imgUrl} onChange={(event)=> {
-            handleChange(event.target.value, "imgUrl")}}/>
-        <img src={attack?.imgUrl} alt='image preview'/>
-    <div>
-        <Button onClick={()=>handleSubmit()}>
-            Save
-        </Button>
-        <Button onClick={()=>handleDelete()}>
-            Delete
-        </Button>
-    </div>
-    {isError && <div>Ooupsss... something bad happened</div>}
-    <Link to="/admin/attacks">
-        <Button>
-            Back
-        </Button>
-    </Link>
+      </Form>
+      <Label>Image Url</Label>
+      <Input
+        type="url"
+        value={attack.imgUrl}
+        onChange={(event) => {
+          handleChange(event.target.value, 'imgUrl');
+        }}
+      />
+      <img src={attack?.imgUrl} alt="preview" />
+      <div>
+        <Button onClick={() => handleSubmit()}>Save</Button>
+        <Button onClick={() => handleDelete()}>Delete</Button>
+      </div>
+      {isError && <div>Ooupsss... something bad happened</div>}
+      <Link to="/admin/attacks">
+        <Button>Back</Button>
+      </Link>
     </>
   );
 }
