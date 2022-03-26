@@ -180,3 +180,6 @@ export const MONSTERS = [
         availableAttacks : ["Attaque de base","Ombre grandissante", "Vision horrifique", "Ombre enveloppante" ]
     },
 ]
+
+export const BASE_API_URL = "https://mb-api.caprover.jsl-systems.com"
+

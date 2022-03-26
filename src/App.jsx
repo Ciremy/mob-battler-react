@@ -1,12 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
-import MobCard from './components/MobCard';
-import {MONSTERS} from './const.js'
+import Router from './Router';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
     <div className="App">
-        <div className="carWrapper">{MONSTERS.map((monster) => <MobCard key={monster.name} monsterDetail={monster}/>)}</div>
+        <Router/>
     </div>
   );
 }
